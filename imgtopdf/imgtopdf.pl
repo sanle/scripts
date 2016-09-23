@@ -10,6 +10,8 @@ use PDF::API2;
 
 my @files;
 
+die "Need some path" if ($#ARGV == -1);
+
 find({wanted=>\&to_file_array,no_chdir=>1},@ARGV);
 &process;
 #######################
@@ -36,7 +38,6 @@ sub process
 			die "Can`t parse image info: $error\n";
 		}
 		my ($w, $h) = dim($info);
-		say $file." ".$w." ".$h;
 		$my_y-=$h;
 		if($my_y< 0)
 		{
